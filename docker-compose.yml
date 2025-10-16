@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: stock-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - stocknet
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: stock-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - stocknet
+
+networks:
+  stocknet:
+    driver: bridge

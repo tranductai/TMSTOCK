@@ -1,0 +1,5 @@
+node_modules
+dist
+src/environments/environment*.ts
+.git
+npm-debug.log

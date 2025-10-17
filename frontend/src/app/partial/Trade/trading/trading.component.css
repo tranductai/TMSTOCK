@@ -201,3 +201,31 @@ form select:focus {
   padding: 0.4rem;
   margin-top: 0.5rem;
 }
+.price-down-animate{
+   animation: blinker-down .7s infinite;
+    color: #ee5042;
+}
+.price-up-animate{
+   animation: blinker-up .7s infinite;
+}
+@keyframes blinker-down {
+  50% {
+    background-color: #ee5042;
+    color: #fff;
+  }
+}
+@keyframes blinker-up {
+  50% {
+    background-color: #00aa00;
+    color: #fff;
+  }
+}
+.price-nochange-animate{
+   animation: blinker-nochange .7s infinite;
+}
+@keyframes blinker-nochange {
+  50% {
+    background-color: #ccaa00;
+    color: #fff;
+  }
+}

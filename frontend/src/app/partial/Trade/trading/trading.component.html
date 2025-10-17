@@ -171,7 +171,7 @@
             <tr *ngFor="let s of stocks" class="border-t hover:bg-gray-50 transition tr_summary"
                 [class.text-green-600]="s.change && s.change > 0" [class.text-red-600]="s.change && s.change < 0">
                 <td class="p-2 font-bold" [ngClass]="checkColorPriceUpDown(s)">{{ s.code }}</td>
-                <td class="p-2 text-right font-bold" [ngClass]="checkColorPriceUpDown(s)">{{ s.price || s.close*1000 |
+                <td class="p-2 text-right font-bold" [ngClass]="checkColorPriceUpDown(s) + animationUpDown(s)">{{ s.price || s.close*1000 |
                     number: '1.0-2' }}</td>
                 <td class="p-2 text-right font-bold price-noChange">{{ s.reference*1000 | number: '1.0-2' }}</td>
                 <td class="p-2 text-right font-bold" [ngClass]="checkColorPriceUpDown(s)">

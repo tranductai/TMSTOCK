@@ -39,6 +39,7 @@ export class TradingComponent {
   subscriptions: any;
   userProfile: any;
   summaryList: any = [];
+  stockPrevious: any[] = []
   stocks: any[] = [];
   sub?: Subscription;
   listStockCodeSummary = ['VND', 'HPG', 'NKG'];
@@ -194,6 +195,10 @@ export class TradingComponent {
       if (res?.data) {
         const data = Object.values(res.data) as StockData[];
         this.stocks = data;
+        if (this.stockPrevious.length <= 0) {
+          this.stockPrevious = this.stocks;
+          console.log('thissssss', this.stockPrevious)
+        }
         console.log('dataaaaaaaaaaaaaaaaaa', this.stocks)
       }
     });
@@ -392,13 +397,37 @@ export class TradingComponent {
     });
     this.isAdd = false
   }
-  checkColorPriceUpDown(item: any){
-    if(item['open'] - item['close'] > 0){
-      return 'price-down'
-    }else if(item['open'] - item['close'] < 0){
+  checkColorPriceUpDown(item: any) {
+    if (item['close'] - item['reference'] > 0) {
       return 'price-up'
-    }else{
+    } else if (item['close'] - item['reference'] < 0) {
+      return 'price-down'
+    } else {
       return 'price-noChange'
     }
+  }
+
+  animationUpDown(item: any) {
+    for (let i = 0; i < this.stockPrevious.length; i++) {
+      if (item['code'] == this.stockPrevious[i]['code']) {
+        if (item['close'] > this.stockPrevious[i]['close']) {
+          console.log('111')
+          this.stockPrevious[i]['close'] = item['close'];
+          return ' price-up-animate'
+        } else
+          if (item['close'] < this.stockPrevious[i]['close']) {
+            console.log('22')
+            this.stockPrevious[i]['close'] = item['close'];
+            return ' price-down-animate'
+          }else{
+            return ''
+          }
+        // if (item['close'] == this.stockPrevious[i]['close']) {
+        //   console.log('33')
+        //   return ' price-nochange-animate'
+        // }
+      }
+    }
+    return ''
   }
 }
